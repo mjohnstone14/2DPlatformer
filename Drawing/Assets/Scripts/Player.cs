@@ -1,24 +1,42 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
-
-	public float StepLength;
+	public float speed = 10;
+	public float jumpVelocity = 10;
+	Transform myTrans, tagGround;
+	Rigidbody2D myBody;
+	public LayerMask playerMask;
+	public bool isGrounded = false;
 
 	// Use this for initialization
 	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		float horizontal_axis = Input.GetAxis ("Horizontal");
+		myBody = this.GetComponent<Rigidbody2D>();
+		myTrans = this.transform;
+		tagGround = GameObject.Find (this.name + "tag_ground").transform;
 
-		if(horizontal_axis > 0) {
-			gameObject.transform.position += new Vector3 (StepLength, 0, 0);
+	}
+
+	// Update is called once per frame
+	void FixedUpdate () {
+		isGrounded = Physics2D.Linecast (myTrans.position, tagGround.position, playerMask);
+
+		Move (Input.GetAxisRaw("Horizontal"));
+		if (Input.GetButtonDown ("Jump")) {
+			Jump ();
 		}
-		if (horizontal_axis < 0) {
-			gameObject.transform.position += new Vector3 (-StepLength, 0, 0);
+	}
+
+	public void Move(float horizontalInput) {
+		Vector2 moveVel = myBody.velocity;
+		moveVel.x = horizontalInput * speed;
+		myBody.velocity = moveVel;
+
+	}
+
+	public void Jump() {
+		if (isGrounded) {
+			myBody.velocity += jumpVelocity * Vector2.up;
 		}
 	}
 }
