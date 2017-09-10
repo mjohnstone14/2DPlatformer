@@ -147,6 +147,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 61631834662235810, guid: 628486251c618434cb2ec4f3eda77977,
+        type: 2}
+      propertyPath: m_UsedByEffector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 61631834662235810, guid: 628486251c618434cb2ec4f3eda77977,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: ce06e75fea1b1b6479670d0d572606d3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 628486251c618434cb2ec4f3eda77977, type: 2}
   m_IsPrefabParent: 0
@@ -253,7 +263,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -327,8 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  jumpVelocity: 10
-  gravity: 40
+  jumpVelocity: 15
   playerMask:
     serializedVersion: 2
     m_Bits: 4294967039
@@ -391,6 +400,11 @@ Prefab:
       propertyPath: m_Name
       value: rectangle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 61631834662235810, guid: 628486251c618434cb2ec4f3eda77977,
+        type: 2}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: ce06e75fea1b1b6479670d0d572606d3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 628486251c618434cb2ec4f3eda77977, type: 2}
   m_IsPrefabParent: 0

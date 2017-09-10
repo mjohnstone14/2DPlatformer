@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 	public float speed = 10;
-	public float jumpVelocity = 20;
-	public float gravity = 40;
+	public float jumpVelocity = 10;
 	Transform myTrans, tagGround;
-	Rigidbody2D rigidBody;
+	Rigidbody2D myBody;
 	public LayerMask playerMask;
 	public bool isGrounded = false;
 
 	// Use this for initialization
 	void Start () {
-		rigidBody = GetComponent<Rigidbody2D>();
+		myBody = this.GetComponent<Rigidbody2D>();
 		myTrans = this.transform;
 		tagGround = GameObject.Find (this.name + "tag_ground").transform;
 
@@ -20,28 +19,24 @@ public class Player : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-
-		Vector2 velocity = rigidBody.velocity;
-		velocity.x = Input.GetAxisRaw("Horizontal") * speed;
-
-		UpdateGrounding ();
 		isGrounded = Physics2D.Linecast (myTrans.position, tagGround.position, playerMask);
 
-		if (Input.GetButtonDown ("Jump") && isGrounded) {
-			velocity = Jump (velocity);
+		Move (Input.GetAxisRaw("Horizontal"));
+		if (Input.GetButtonDown ("Jump")) {
+			Jump ();
 		}
-		velocity.y += -gravity * Time.deltaTime;
-		//Debug.Log (velocity.y);
-
-		rigidBody.velocity = velocity;
 	}
 
-	void UpdateGrounding () {
+	public void Move(float horizontalInput) {
+		Vector2 moveVel = myBody.velocity;
+		moveVel.x = horizontalInput * speed;
+		myBody.velocity = moveVel;
+
 	}
-		
-	Vector2 Jump(Vector2 velocity) {
-		velocity.y = jumpVelocity;
-		isGrounded = false;
-		return velocity;
+
+	public void Jump() {
+		if (isGrounded) {
+			myBody.velocity += jumpVelocity * Vector2.up;
+		}
 	}
 }
