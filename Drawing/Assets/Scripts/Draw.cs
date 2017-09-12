@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Draw : MonoBehaviour {
 
-	public GameObject cirlePrefab;
-
+	public GameObject circlePrefab;
+	public GameObject player;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,9 +14,11 @@ public class Draw : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+	
 		if (Input.GetMouseButton(0)) {
-			cirlePrefab.transform.position = new Vector3 (mousePos.x, mousePos.y, 1);
-			Instantiate (cirlePrefab);
+			circlePrefab.transform.position = new Vector3 (mousePos.x, mousePos.y, 1);
+			Instantiate (circlePrefab);
+
 		}
 	}
 }
