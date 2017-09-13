@@ -21,6 +21,9 @@ public class Draw : MonoBehaviour {
 	
 		if (Input.GetMouseButton (0)) {
 
+			// Check to see if this is the first update since the mouse was clicked, in 
+			// which case there will be no last position for the mouse, so we want to set
+			// mouseLastPos to the current position of the mouse
 			if (!clicked) {
 				mouseLastPos = mousePos;
 				clicked = true;
@@ -38,33 +41,18 @@ public class Draw : MonoBehaviour {
 	}
 
 	private void DrawCirlesBetweenPoints(Vector2 position_0, Vector2 position_1) {
-//		Vector2 between = position_1 - position_0;
-//		// base case to stop recursion
-//		if (between.magnitude < 2) {
-//			return;
-//		}
-//		Debug.Log (between.magnitude);
-//		Vector2 newPos = (between / 2) + position_0;
-//		circlePrefab.transform.position = newPos;
-//		Instantiate (circlePrefab);
-//
-//		DrawCirlesBetweenPoints (position_0, between / 2);
-//		DrawCirlesBetweenPoints (between / 2, position_1);
+		Vector2 between = position_1 - position_0;
 
-//		**********************************************************************************
-
-		Vector2 start = position_0;
-		Vector2 end = position_1;
-
-		Vector2 between = new Vector2 (2, 2);
-		while (between.magnitude > .5) {
-			between = position_1 - position_0;
-			Vector2 newPos = (between / 2) + position_0;
-			circlePrefab.transform.position = newPos;
-			Instantiate (circlePrefab);
-			position_0 = start;
-			position_1 = between / 2;
-
+		// base case to stop recursion
+		if (between.magnitude < .5) {
+			return;
 		}
+
+		Vector2 newPos = (between / 2) + position_0;
+		circlePrefab.transform.position = newPos;
+		Instantiate (circlePrefab);
+
+		DrawCirlesBetweenPoints (position_0, newPos);
+		DrawCirlesBetweenPoints (newPos, position_1);
 	}
 }
